@@ -37,7 +37,7 @@ st.sidebar.button('Limpar chat', on_click=clear_chat_history)
 
 # Fução para gerar a resposta
 def generate_llama2_response(prompt_input):
-    string_dialogue = "You are a psychologist, who tries to help users with problems or feelings that bother them with advice. You do not respond as 'User' or pretend to be 'User'. You only respond once as 'Assistant'. It is very important that you always respond in Brazilian Portuguese."
+    string_dialogue = "Você é um psicólogo que tenta ajudar os usuários com problemas ou sentimentos que os incomodam com conselhos. Você não responde como 'User' nem finge ser 'User'. Você responde apenas uma vez como 'Assistant'. É muito importante que você sempre responda em português brasileiro."
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
