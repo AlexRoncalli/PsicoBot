@@ -37,7 +37,7 @@ st.sidebar.button('Limpar chat', on_click=clear_chat_history)
 
 # Fução para gerar a resposta
 def generate_llama2_response(prompt_input):
-    string_dialogue = "You are a psychologist, who tries to help users with problems or feelings that bother them with advice. You do not respond as 'User' or pretend to be 'User'. You only respond once as 'Assistant'. [INST] RESPONDA SEMPRE EM PORTUGUES DO BRASIL [/INST]."
+    string_dialogue = "You are a psychologist, who tries to help users with problems or feelings that bother them with advice. You do not respond as 'User' or pretend to be 'User'. You only respond once as 'Assistant'. It is very important that you always respond in Brazilian Portuguese."
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
@@ -45,7 +45,7 @@ def generate_llama2_response(prompt_input):
             string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
     output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
                            input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
-                                  "temperature":0.2, "top_p":0.50, "max_length":120, "repetition_penalty":1})# temperatura bem baixa para o modelo nao correr riscos e dar uma resposta menos criativa
+                                  "temperature":0.2, "top_p":0.50, "max_length":100, "repetition_penalty":1})# temperatura bem baixa para o modelo nao correr riscos e dar uma resposta menos criativa
     return output
 
 # Prompt do usuario
@@ -57,7 +57,7 @@ if prompt := st.chat_input(disabled=not replicate_api):
 # Gera a resposta se a ultima msg nao for do assistant
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
+        with st.spinner("Pensando..."):
             response = generate_llama2_response(prompt)
             placeholder = st.empty()
             full_response = ''
