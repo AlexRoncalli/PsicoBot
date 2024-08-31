@@ -2,6 +2,10 @@ import streamlit as st
 import replicate
 import os
 
+#tradutor
+!pip install deep-translator
+from deep_translator import GoogleTranslator
+
 # Titulo
 st.set_page_config(page_title="PsicoBot")
 
@@ -66,5 +70,8 @@ if st.session_state.messages[-1]["role"] != "assistant":
                 full_response += item
                 placeholder.markdown(full_response)
             placeholder.markdown(full_response)
-    message = {"role": "assistant", "content": full_response}
-    st.session_state.messages.append(message)
+    #message = {"role": "assistant", "content": full_response}
+    tranlated = GoogleTranslator(source='english', target='pt').translate(message)
+    st.session_state.messages.append(tranlated)
+    #st.session_state.messages.append(message)
+
