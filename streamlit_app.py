@@ -51,7 +51,7 @@ def generate_llama2_response(prompt_input):
 
 # Prompt do usuario
 if prompt_user := st.chat_input(disabled=not replicate_api):
-    st.session_state.messages.append({"role": "User", "content": prompt})
+    st.session_state.messages.append({"role": "User", "content": prompt_user})
     with st.chat_message("User"):
         st.write(prompt)
 
