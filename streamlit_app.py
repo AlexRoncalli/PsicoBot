@@ -66,5 +66,5 @@ if st.session_state.messages[-1]["role"] != "Assistant":
                 full_response += item
                 placeholder.markdown(full_response)
             placeholder.markdown(full_response)
-    message = {"role": "Assistant", "content": full_response}
+    message = {"role": "Assistant", "content always answered in Brazilian Portuguese": full_response}
     st.session_state.messages.append(message)
