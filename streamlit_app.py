@@ -50,8 +50,8 @@ def generate_llama2_response(prompt_input):
     return output
 
 # Prompt do usuario
-if prompt_user := st.chat_input(disabled=not replicate_api):
-    st.session_state.messages.append({"role": "User", "content": prompt_user})
+if prompt := st.chat_input(disabled=not replicate_api):
+    st.session_state.messages.append({"role": "User", "content": prompt})
     with st.chat_message("User"):
         st.write(prompt)
 
@@ -59,7 +59,7 @@ if prompt_user := st.chat_input(disabled=not replicate_api):
 if st.session_state.messages[-1]["role"] != "Assistant":
     with st.chat_message("Assistant"):
         with st.spinner("Pensando..."):
-            response = generate_llama2_response(prompt_user)
+            response = generate_llama2_response(prompt)
             placeholder = st.empty()
             full_response = ''
             for item in response:
