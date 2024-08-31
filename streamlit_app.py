@@ -61,7 +61,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
         with st.spinner("Pensando..."):
             response = generate_llama2_response(prompt)
             placeholder = st.empty()
-            full_response = ''
+            full_response = 'Você deve sempre responder em portugues brasileiro."'
             for item in response:
                 full_response += item
                 placeholder.markdown(full_response)
