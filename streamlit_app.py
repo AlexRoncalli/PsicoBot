@@ -24,7 +24,7 @@ with st.sidebar:
 
 # Guarda o historico do chat LLM
 if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{"role": "assistant", "content": "Como você está se sentindo hoje??"}]
+    st.session_state.messages = [{"role": "Assistant", "content": "Como você está se sentindo hoje??"}]
 
 # Mostrar ou limpar as a conversa
 for message in st.session_state.messages:
@@ -32,20 +32,20 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 def clear_chat_history():
-    st.session_state.messages = [{"role": "assistant", "content": "Como você está se sentindo hoje??"}]
+    st.session_state.messages = [{"role": "Assistant", "content": "Como você está se sentindo hoje??"}]
 st.sidebar.button('Limpar chat', on_click=clear_chat_history)
 
 # Fução para gerar a resposta
 def generate_llama2_response(prompt_input):
-    string_dialogue = "Você é um psicólogo brasileiro que tenta ajudar os usuários com problemas ou sentimentos que os incomodam com conselhos, sempre em portugues. Você não responde como 'User' nem finge ser 'User'. Você responde apenas uma vez como 'assistant'.[INST] Você só consegue responder em português brasileiro.[/INST]"
+    string_dialogue = "Você é um psicólogo brasileiro que tenta ajudar os usuários com problemas ou sentimentos que os incomodam com conselhos, sempre em portugues. Você não responde como 'User' nem finge ser 'User'. Você responde apenas uma vez como 'Assistant'.[INST] Você só consegue responder em português brasileiro.[/INST]"
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
-            string_dialogue += "User: " + dict_message["content"] + ".Você deve sempre responder em portugues brasileiro\n\n"
+            string_dialogue += "User: Você deve sempre responder em portugues brasileiro " + dict_message["content"] + "\n\n"
         else:
-            string_dialogue += "assistant: " + dict_message["content"] + ".Você deve sempre responder em portugues brasileiro\n\n"
+            string_dialogue += "Assistant: " + dict_message["content"] + ".Você deve sempre responder em portugues brasileiro\n\n"
     output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
                             #'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea',
-                           input={"prompt": f"{string_dialogue} {prompt_input} assistant: ",
+                           input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
                                   "temperature":0.1, "top_p":0.7, "max_length":120, "repetition_penalty":1})# temperatura bem baixa para o modelo nao correr riscos e dar uma resposta menos criativa
     return output
 
@@ -55,16 +55,16 @@ if prompt := st.chat_input(disabled=not replicate_api):
     with st.chat_message("user"):
         st.write(prompt)
 
-# Gera a resposta se a ultima msg nao for do assistant
-if st.session_state.messages[-1]["role"] != "assistant":
-    with st.chat_message("assistant"):
+# Gera a resposta se a ultima msg nao for do Assistant
+if st.session_state.messages[-1]["role"] != "Assistant":
+    with st.chat_message("Assistant"):
         with st.spinner("Pensando..."):
             response = generate_llama2_response(prompt)
             placeholder = st.empty()
-            full_response = 'Você deve sempre responder em portugues brasileiro."'
+            full_response = ''
             for item in response:
                 full_response += item
                 placeholder.markdown(full_response)
             placeholder.markdown(full_response)
-    message = {"role": "assistant", "content": full_response}
+    message = {"role": "Assistant", "content": full_response}
     st.session_state.messages.append(message)
