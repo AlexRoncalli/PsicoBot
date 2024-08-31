@@ -42,7 +42,7 @@ def generate_llama2_response(prompt_input):
         if dict_message["role"] == "user":
             string_dialogue += "User:" + dict_message["content"] + "\n\n"
         else:
-            string_dialogue "Você deve sempre responder em portugues brasileiro" += "Assistant: " + dict_message["content"] + ".Você deve sempre responder em portugues brasileiro\n\n"
+            string_dialogue += "Assistant: " + dict_message["content"] + ".Você deve sempre responder em portugues brasileiro\n\n"
     output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
                             #'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea',
                            input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
@@ -59,7 +59,7 @@ if prompt := st.chat_input(disabled=not replicate_api):
 if st.session_state.messages[-1]["role"] != "Assistant":
     with st.chat_message("Assistant"):
         with st.spinner("Pensando..."):
-            response = generate_llama2_response(prompt)
+            response = generate_llama2_response(prompt_input)
             placeholder = st.empty()
             full_response = ''
             for item in response:
