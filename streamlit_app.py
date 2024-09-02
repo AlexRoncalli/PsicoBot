@@ -6,7 +6,7 @@ import os
 from deep_translator import GoogleTranslator
 
 # Titulo
-st.set_page_config(page_title="PsicoBot")
+st.set_page_config(page_title="PsicoBoto")
 
 # Autentificar as credenciais
 with st.sidebar:
