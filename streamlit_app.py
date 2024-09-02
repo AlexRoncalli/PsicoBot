@@ -11,16 +11,16 @@ st.set_page_config(page_title="PsicoBot")
 
 # Autentificar as credenciais
 with st.sidebar:
-    st.title('🦙💬 Llama 2 Chatbot')
+    st.title('💬 PsicoBot')
     if 'REPLICATE_API_TOKEN' in st.secrets:
-        st.success('API key already provided!', icon='✅')
+        st.success('API key correta!', icon='✅')
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
     else:
-        replicate_api = st.text_input('Enter Replicate API token:', type='password')
+        replicate_api = st.text_input('Replicate API token:', type='password')
         if not (replicate_api.startswith('r8_') and len(replicate_api)==40):
-            st.warning('Please enter your credentials!', icon='⚠️')
+            st.warning('Insira suas credencias ', icon='⚠️')
         else:
-            st.success('Proceed to entering your prompt message!', icon='👉')
+            st.success('Pode falar com o bot!', icon='👉')
 
     #llm = 'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea'
 
