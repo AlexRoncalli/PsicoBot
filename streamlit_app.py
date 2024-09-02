@@ -22,6 +22,9 @@ with st.sidebar:
             st.success('Pode falar com o bot!', icon='👉')
 
     #llm = 'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea'
+    temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
+    top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
+    max_length = st.sidebar.slider('max_length', min_value=32, max_value=128, value=120, step=8)
 
 # Guarda o historico do chat LLM
 if "messages" not in st.session_state.keys():
@@ -47,7 +50,7 @@ def generate_llama2_response(prompt_input):
     output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
                             #'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea',
                            input={"prompt": f"Responda em portugues.{string_dialogue} {prompt_input} Assistant: ",
-                                  "temperature":0.1, "top_p":0.7, "max_length":120, "repetition_penalty":1})# temperatura bem baixa para o modelo nao correr riscos e dar uma resposta menos criativa
+                                  "temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})# temperatura bem baixa para o modelo nao correr riscos e dar uma resposta menos criativa
     return output
 
 # Prompt do usuario
