@@ -15,6 +15,7 @@ with st.sidebar:
         st.success('API key correta!', icon='✅')
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
         os.environ["REPLICATE_API_TOKEN"] = replicate_api
+        replicate_api = replicate_api.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
     else:
         replicate_api = st.text_input('Replicate API token:', type='password')
         if not (replicate_api.startswith('r8_') and len(replicate_api)==40):
