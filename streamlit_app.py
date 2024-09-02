@@ -13,7 +13,8 @@ with st.sidebar:
     st.title('💬 PsicoBot')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key correta!', icon='✅')
-        replicate_api = st.secrets['r8_4hf86k0msOTxaQA3WaYkh5GqHyPOWXg2cdnsn']
+        replicate_api = st.secrets['REPLICATE_API_TOKEN']
+        client = replicate.Client(api_token=replicate_api)
         #os.environ["REPLICATE_API_TOKEN"] = replicate_api
         #replicate_api = replicate_api.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
     else:
