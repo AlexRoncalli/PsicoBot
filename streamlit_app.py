@@ -14,7 +14,6 @@ with st.sidebar:
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key correta!', icon='✅')
         replicate_api = st.secrets['r8_4hf86k0msOTxaQA3WaYkh5GqHyPOWXg2cdnsn']
-        replicate_api = r8_cxJhQJGy6tJt0083y5tBj8oMGkEcSvL2EWa9A
         #os.environ["REPLICATE_API_TOKEN"] = replicate_api
         #replicate_api = replicate_api.Client(api_token=os.environ["REPLICATE_API_TOKEN"])
     else:
