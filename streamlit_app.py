@@ -43,10 +43,10 @@ def generate_llama2_response(prompt_input):
         if dict_message["role"] == "user":
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
         else:
-            string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
+            string_dialogue += "assistant: " + dict_message["content"] + "\n\n"
     output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
                             #'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea',
-                           input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
+                           input={"prompt": f"{string_dialogue} {prompt_input} assistant: ",
                                   "temperature":0.1, "top_p":0.7, "max_length":120, "repetition_penalty":1})# temperatura bem baixa para o modelo nao correr riscos e dar uma resposta menos criativa
     return output
 
@@ -57,8 +57,8 @@ if prompt := st.chat_input(disabled=not replicate_api):
         st.write(prompt)
 
 # Gera a resposta se a ultima msg nao for do assistant
-if st.session_state.messages[-1]["role"] != "Assistant":
-    with st.chat_message("Assistant"):
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
         with st.spinner("Pensando..."):
             response = generate_llama2_response(prompt)
             placeholder = st.empty()
