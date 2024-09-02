@@ -60,5 +60,17 @@ if prompt := st.chat_input(disabled=not replicate_api):
 if st.session_state.messages[-1]["role"] != "Assistant":
     with st.chat_message("Assistant"):
         with st.spinner("Pensando..."):
-            generate_llama2_response(prompt)
+            response = generate_llama2_response(prompt)
+            placeholder = st.empty()
+            full_response = ''
+            for item in response:
+                full_response += item
+                placeholder.markdown(full_response)
+                full_response = GoogleTranslator(source='auto', target='pt').translate(full_response)
+            placeholder.markdown(full_response)
+    
+    # Traduzindo a resposta para português
+    
+    message = {"role": "Assistant", "content": full_response}
+    st.session_state.messages.append(message)
 
