@@ -2,6 +2,8 @@ import streamlit as st
 import replicate
 import os
 
+!pip install -U deep-translator
+
 #tradutor
 from deep_translator import GoogleTranslator
 
